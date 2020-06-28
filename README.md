@@ -3,6 +3,8 @@
 A full-stack development code challenge from pickar. Develop a currency converter for EUR-CHR-USD with conversion history log. The exchange rate is queried from exchangeratesapi.io as oppose to their suggested currencylayer.com as the latter offers too limited API access with free subscription and the former is fully free.
 
 ## stats
+[![Build Status](https://travis-ci.org/Fujihita/pickar-currency-converter.svg?branch=master)](https://travis-ci.org/Fujihita/pickar-currency-converter)
+
 Version: 0.0.0
 
 Project started: Sunday 28 June 2020
