@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Currency converter</title>
+    <link rel="stylesheet" type="text/css" href="styles/index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <script src="scripts/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body style="height:800px;background-color:#EEF4F7; margin:0px">
+<div class="background-upper-half">
+    <img src="static/pickar_logo_white.png" class="pickar-logo-white"></img>
+    <div style="padding-left:60px;padding-top:125px" class="headline">Convert currencies in real-time.</div>
+</div>
+
+<div class="converter box-background">
+    <div style="display:flex;flex-flow: row wrap;">
+        <div class="input-field">
+            <div class="name">Amount</div>
+            <input class="default-value">
+        </div>
+        <div class="input-field" style="margin-right:40px;">
+            <div class="name">From</div>
+            <div class="dropdown">
+                <div class="dropdown-content">
+                <span>EUR</span>
+                <span>CHF</span>
+                <span>USD</span>
+                </div>
+            </div>
+            <img src="static/Arrow.png" class="dropdown-arrow"/>
+        </div>
+
+        <div style="position:relative;top:67px;left:20px">
+        <img src="static/Switcher.png" style="cursor:pointer"/>
+        </div>
+
+        <div class="input-field">
+            <div class="name">To</div>
+            <div class="dropdown">
+                <div class="dropdown-content">
+                <span>EUR</span>
+                <span>CHF</span>
+                <span>USD</span>
+                </div>
+            </div>
+            <img src="static/Arrow.png" class="dropdown-arrow"/>
+        </div>
+
+        <button>
+            <div class="button-default-value">Convert</div>
+        </button>
+    </div>
+</div>
+
+<div class="button-view-history">
+    View conversion history >
+</div>
+
+<div class="base-result">
+    1 EUR =
+</div>
+<div class="target-result">
+    1.2392 USD
+</div>
+
+</body>
+</html>
