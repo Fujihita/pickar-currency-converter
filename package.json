@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-"start": "node app.js",
-    "test": "mocha --exit"
+    "start": "node app.js",
+    "test": "npx nyc mocha --exit --report lcovonly -- -R spec && codecov"
   },
   "dependencies": {
     "express": "~4.16.1"

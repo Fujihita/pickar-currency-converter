@@ -5,7 +5,7 @@ A full-stack development code challenge from pickar. Develop a currency converte
 ## stats
 [![Build Status](https://travis-ci.org/Fujihita/pickar-currency-converter.svg?branch=master)](https://travis-ci.org/Fujihita/pickar-currency-converter)
 
-Version: 0.0.0
+Version: 0.0.3
 
 Project started: Sunday 28 June 2020
 
@@ -14,7 +14,7 @@ Project published: Monday 29 June 2020
 Status: In development
 
 ### webstack
-* Back-end: Nodejs
+* Back-end: Nodejs, Expressjs
 * Front-end: Vuejs, HTML/CSS
 * Test suite: Mocha, Supertest, Should, Nyc
 * Database: N/A.
