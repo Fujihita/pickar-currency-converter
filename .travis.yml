@@ -6,3 +6,5 @@ install:
 - npm install
 script:
  - npm test
+ after_success:
+  - Rscript -e 'options(covr.gcov = "gcov-4.8");library(covr);coveralls()'
