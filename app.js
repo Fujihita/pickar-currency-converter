@@ -30,17 +30,20 @@ function exportHistory()
   return db
 }
 
-https.get({
-  host: 'api.exchangeratesapi.io',
-  path: '/latest?symbols=USD,CHF',
-}, function (res) {
-  var body = '';
-  res.on('data', function (chunk) { body += chunk; });
-  res.on('end', function () {
-  rates = JSON.parse(body).rates;
-  rates.EUR = 1;
-  }.bind({ rates: this.rates }));
-});
+function updateRate(){
+  https.get({
+    host: 'api.exchangeratesapi.io',
+    path: '/latest?symbols=USD,CHF',
+  },
+  function (res) {
+      var body = '';
+      res.on('data', function (chunk) { body += chunk; });
+      res.on('end', function () {
+        rates = JSON.parse(body).rates;
+        rates.EUR = 1;
+      }.bind({ rates: this.rates }));
+    });
+}
 
 router.get('/', function (req, res) {
   res.sendFile('views/index.html', { root: __dirname });
@@ -70,6 +73,10 @@ router.get('/history', function (req, res) {
 });
 
 app.use('/', router);
+
+updateRate();
+setInterval(updateRate, 60 * 60 * 1000);
+
 app.listen(process.env.PORT || 3000);
 
 module.exports = app
