@@ -15,11 +15,12 @@ var rates = {
 
 var db = []
 
-function importHistory(amount, base, target)
+function importHistory(amount, result, base, target)
 {
   db.push({
-    time: Date.now(),
-    amount: amount,
+    tstamp: Date.now(),
+    input: amount,
+    output: result,
     base: base,
     target: target
   })
@@ -63,7 +64,7 @@ router.get('/convert', function (req, res) {
   else
     {
       result = amount * rates[target] / rates[base];
-      importHistory(amount, base, target);
+      importHistory(amount, result, base, target);
       res.send(result.toString());
     }
 }.bind({ rates: this.rates }));

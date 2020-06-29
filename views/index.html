@@ -10,63 +10,89 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource"></script>
+    <script src="https://unpkg.com/vue-router"></script>
 </head>
 
-<body>
-    <div style="height:800px;background-color:#EEF4F7; margin:0px" class="grid" id="app" id="app">
-<div class="background-upper-half">
-    <img src="static/pickar_logo_white.png" class="pickar-logo-white"></img>
+<script type="x/template" id="converter-template">
+<div class="converter-wrapper">
     <div style="padding-left:60px;padding-top:125px" class="headline">Convert currencies in real-time.</div>
-</div>
-
-<div class="converter box-background">
-    <div style="display:flex;flex-flow: row wrap;">
-        <div class="input-field">
-            <div class="name">Amount</div>
-            <input type="number" class="default-value" v-model="amount" id="amount-box">
-        </div>
-        <div class="input-field" style="margin-right:40px;">
-            <div class="name">From</div>
-            <div class="dropdown">
-                {{base}}
-                <div class="dropdown-content" v-model="target">
-                    <option v-for="currency in currencies" v-on:click="setBase">{{currency}}</option>
-                </div>
+    <div class="converter box-background">
+        <div style="display:flex;flex-flow: row wrap;">
+            <div class="input-field">
+                <div class="name">Amount</div>
+                <input type="number" class="default-value" v-model="amount" id="amount-box">
             </div>
-            <img src="static/Arrow.png" class="dropdown-arrow"/>
-        </div>
-
-        <div style="position:relative;top:67px;left:20px">
-        <img src="static/Switcher.png" style="cursor:pointer" v-on:click="swapCurrencies"/>
-        </div>
-
-        <div class="input-field">
-            <div class="name">To</div>
-            <div class="dropdown">
-                {{target}}
-                <div class="dropdown-content" v-model="target">
-                    <option v-for="currency in currencies" v-on:click="setTarget">{{currency}}</option>
+            <div class="input-field" style="margin-right:40px;">
+                <div class="name">From</div>
+                <div class="dropdown">
+                    {{base}}
+                    <div class="dropdown-content" v-model="target">
+                        <option v-for="currency in currencies" v-on:click="setBase">{{currency}}</option>
+                    </div>
                 </div>
+                <img src="static/Arrow.png" class="dropdown-arrow"/>
             </div>
-            <img src="static/Arrow.png" class="dropdown-arrow"/>
+    
+            <div style="position:relative;top:67px;left:20px">
+            <img src="static/Switcher.png" style="cursor:pointer" v-on:click="swapCurrencies"/>
+            </div>
+    
+            <div class="input-field">
+                <div class="name">To</div>
+                <div class="dropdown">
+                    {{target}}
+                    <div class="dropdown-content" v-model="target">
+                        <option v-for="currency in currencies" v-on:click="setTarget">{{currency}}</option>
+                    </div>
+                </div>
+                <img src="static/Arrow.png" class="dropdown-arrow"/>
+            </div>
+    
+            <button>
+                <div class="button-default-value" v-on:click="convertClick">Convert</div>
+            </button>
         </div>
-
-        <button>
-            <div class="button-default-value" v-on:click="convertClick">Convert</div>
-        </button>
+    </div>
+    
+    <router-link to="/history">
+        <div class="button-view-history">View conversion history ></div>
+    </router-link>
+    
+    <div class="base-result">
+        {{result.input}} {{result.base}} =
+    </div>
+    <div class="target-result">
+        {{result.output}} {{result.target}}
     </div>
 </div>
+</script>
 
-<div class="button-view-history">
-    View conversion history >
-</div>
+<script type="x/template" id="history-template">
+    <div class="history-wrapper">
+        <router-link to="/">
+            <div class="button-go-back">< Go back </div>
+        </router-link>
+        <div class="label-container">
+            <div class="history-label" style="left:10%;">Date</div>
+            <div class="history-label" style="left:40%;">From</div>
+            <div class="history-label" style="left:70%;">To</div>
+        </div>
+        <div class="history-result-container">
+            <div class="history-result-background" v-for="record in history">
+                <div class="history-value" style="left:10%">{{record.tstamp | formatDate}}</div>
+                <div class="history-value" style="left:40%">{{record.input | decimal2}} {{record.base}}</div>
+                <div class="history-value" style="left:70%">{{record.output | decimal5}} {{record.target}}</div>
+            </div>
+        </div>
+    </div>
+</script>
 
-<div class="base-result">
-    {{result.input}} {{result.base}} =
-</div>
-<div class="target-result">
-    {{result.output}} {{result.target}}
-</div>
+<body style="min-height:800px;margin:0px;background-color:#EEF4F7">
+<div class="grid" id="app" id="app">
+    <div class="background-upper-half-main" id="background-upper-half"/>
+    <img src="static/pickar_logo_white.png" class="pickar-logo-white"/>   
+    
+    <router-view></router-view>
 
 <script src="scripts/index.js"></script>
 </div>
