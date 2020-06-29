@@ -8,12 +8,12 @@
     <title>Currency converter</title>
     <link rel="stylesheet" type="text/css" href="styles/index.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <script src="scripts/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource"></script>
 </head>
 
-<body style="height:800px;background-color:#EEF4F7; margin:0px">
+<body>
+    <div style="height:800px;background-color:#EEF4F7; margin:0px" class="grid" id="app" id="app">
 <div class="background-upper-half">
     <img src="static/pickar_logo_white.png" class="pickar-logo-white"></img>
     <div style="padding-left:60px;padding-top:125px" class="headline">Convert currencies in real-time.</div>
@@ -23,38 +23,36 @@
     <div style="display:flex;flex-flow: row wrap;">
         <div class="input-field">
             <div class="name">Amount</div>
-            <input class="default-value">
+            <input type="number" class="default-value" v-model="amount" id="amount-box">
         </div>
         <div class="input-field" style="margin-right:40px;">
             <div class="name">From</div>
             <div class="dropdown">
-                <div class="dropdown-content">
-                <span>EUR</span>
-                <span>CHF</span>
-                <span>USD</span>
+                {{base}}
+                <div class="dropdown-content" v-model="target">
+                    <option v-for="currency in currencies" v-on:click="setBase">{{currency}}</option>
                 </div>
             </div>
             <img src="static/Arrow.png" class="dropdown-arrow"/>
         </div>
 
         <div style="position:relative;top:67px;left:20px">
-        <img src="static/Switcher.png" style="cursor:pointer"/>
+        <img src="static/Switcher.png" style="cursor:pointer" v-on:click="swapCurrencies"/>
         </div>
 
         <div class="input-field">
             <div class="name">To</div>
             <div class="dropdown">
-                <div class="dropdown-content">
-                <span>EUR</span>
-                <span>CHF</span>
-                <span>USD</span>
+                {{target}}
+                <div class="dropdown-content" v-model="target">
+                    <option v-for="currency in currencies" v-on:click="setTarget">{{currency}}</option>
                 </div>
             </div>
             <img src="static/Arrow.png" class="dropdown-arrow"/>
         </div>
 
         <button>
-            <div class="button-default-value">Convert</div>
+            <div class="button-default-value" v-on:click="convertClick">Convert</div>
         </button>
     </div>
 </div>
@@ -64,11 +62,13 @@
 </div>
 
 <div class="base-result">
-    1 EUR =
+    {{result.input}} {{result.base}} =
 </div>
 <div class="target-result">
-    1.2392 USD
+    {{result.output}} {{result.target}}
 </div>
 
+<script src="scripts/index.js"></script>
+</div>
 </body>
 </html>

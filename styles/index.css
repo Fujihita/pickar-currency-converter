@@ -73,11 +73,16 @@ input {
 .dropdown{
     position: relative;
     display: inline-block;
-    height: 40px;
-    width: 200px;
+    height: 30px;
+    width: 184px;
     margin-top:10px; 
     border-radius: 8px;
     background-color: rgba(54,58,62,0.08);
+    font-family: Roboto;
+    font-size: 16px;
+    line-height: 19px;
+    padding-left:16px;
+    padding-top:10px;
 }
 
 .dropdown-content{
@@ -91,9 +96,11 @@ input {
   font-size: 16px;
   line-height: 19px;
   border-radius: 8px;
+  margin-left:-16px;
+  margin-top: 10px;
 }
 
-.dropdown-content span {
+.dropdown-content option {
     display: block;
     height:29px;
     padding-left:16px;
@@ -102,7 +109,7 @@ input {
 }
 
 .dropdown:hover .dropdown-content {display: block;}
-.dropdown-content span:hover {background-color:#ddd;}
+.dropdown-content option:hover {background-color:#ddd;}
 
 .dropdown-arrow{
     position:absolute;
