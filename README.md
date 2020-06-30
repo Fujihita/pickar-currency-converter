@@ -6,7 +6,7 @@ A full-stack development code challenge from pickar. Develop a currency converte
 [![Build Status](https://travis-ci.org/Fujihita/pickar-currency-converter.svg?branch=master)](https://travis-ci.org/Fujihita/pickar-currency-converter)
 [![codecov](https://codecov.io/gh/Fujihita/pickar-currency-converter/branch/master/graph/badge.svg)](https://codecov.io/gh/Fujihita/pickar-currency-converter)
 
-Version: 0.1.0
+Version: 0.1.1
 
 Project started: Sunday 28 June 2020
 

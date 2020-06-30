@@ -4,6 +4,7 @@ var https = require('https');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017";
+var connection = MongoClient.connect(url);
 
 router.use('/scripts', express.static(__dirname + '/scripts'));
 router.use('/styles', express.static(__dirname + '/styles'));
@@ -24,23 +25,26 @@ function importHistory(amount, result, base, target)
     base: base,
     target: target
   }
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    db.db("logs").collection("history").insertOne(record, function(err, res) {
+  connection.then(
+    function(db) {
+      db.db("logs").collection("history").insertOne(record, function(err) {
+        if (err) throw err;
+      })
+    },
+    function(err){
       if (err) throw err;
-    db.close();
-  })
-});
+    }
+  );
 }
 
 function exportHistory()
 {
-  return MongoClient.connect(url).then(
+  return connection.then(
     function(db){
-      return db.db("logs").collection("history").find().toArray();
+      return db.db("logs").collection("history").find().toArray()
     },
     function (err){
-      console.log(err)
+      if (err) throw err;
     }
   );
 }
