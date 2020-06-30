@@ -15,16 +15,15 @@
 
 <script type="x/template" id="converter-template">
 <div class="converter-wrapper">
-    <div style="padding-left:60px;padding-top:125px" class="headline">Convert currencies in real-time.</div>
-    <div class="converter box-background">
-        <div style="display:flex;flex-flow: row wrap;">
-            <div class="input-field">
-                <div class="name">Amount</div>
-                <input type="number" class="default-value" v-model="amount" id="amount-box">
+    <div class="headline">Convert currencies in real-time.</div>
+    <div class="converter-background">
+            <div class="input-wrapper">
+                <div class="label">Amount</div>
+                <input type="number" class="text-field" v-model="amount" id="amount-box">
             </div>
-            <div class="input-field" style="margin-right:40px;">
-                <div class="name">From</div>
-                <div class="dropdown">
+            <div class="input-wrapper" style="margin-right:40px;">
+                <div class="label">From</div>
+                <div class="dropdown text-field">
                     {{base}}
                     <div class="dropdown-content" v-model="target">
                         <option v-for="currency in currencies" v-on:click="setBase">{{currency}}</option>
@@ -33,13 +32,11 @@
                 <img src="static/Arrow.png" class="dropdown-arrow"/>
             </div>
     
-            <div style="position:relative;top:67px;left:20px">
-            <img src="static/Switcher.png" style="cursor:pointer" v-on:click="swapCurrencies"/>
-            </div>
+            <img src="static/Switcher.png" class="switcher" v-on:click="swapCurrencies"/>
     
-            <div class="input-field">
-                <div class="name">To</div>
-                <div class="dropdown">
+            <div class="input-wrapper">
+                <div class="label">To</div>
+                <div class="dropdown text-field">
                     {{target}}
                     <div class="dropdown-content" v-model="target">
                         <option v-for="currency in currencies" v-on:click="setTarget">{{currency}}</option>
@@ -51,7 +48,6 @@
             <button>
                 <div class="button-default-value" v-on:click="convertClick">Convert</div>
             </button>
-        </div>
     </div>
     
     <router-link to="/history">
