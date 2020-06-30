@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var https = require('https');
 var router = express.Router();
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017";
 
 router.use('/scripts', express.static(__dirname + '/scripts'));
 router.use('/styles', express.static(__dirname + '/styles'));
@@ -13,22 +15,34 @@ var rates = {
   EUR: 1
 }
 
-var db = []
-
 function importHistory(amount, result, base, target)
 {
-  db.push({
+  record = {
     tstamp: Date.now(),
     input: amount,
     output: result,
     base: base,
     target: target
+  }
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    db.db("logs").collection("history").insertOne(record, function(err, res) {
+      if (err) throw err;
+    db.close();
   })
+});
 }
 
 function exportHistory()
 {
-  return db
+  return MongoClient.connect(url).then(
+    function(db){
+      return db.db("logs").collection("history").find().toArray();
+    },
+    function (err){
+      console.log(err)
+    }
+  );
 }
 
 function updateRate(){
@@ -70,7 +84,14 @@ router.get('/convert', function (req, res) {
 }.bind({ rates: this.rates }));
 
 router.get('/history', function (req, res) {
-  res.json(exportHistory());
+  exportHistory().then(
+    function(history){
+      res.json(history);
+    },
+    function(err){
+      res.send(err);
+    }
+  );
 });
 
 app.use('/', router);
